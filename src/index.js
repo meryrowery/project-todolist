@@ -1,7 +1,6 @@
 import "./styles.css";
 
 let projectArr = [];
-// let taskArr = [];
 const dialogNewProject = document.getElementById("dialogNewProject");
 const closeDialog = document.getElementById("closeDialog");
 const buttonNewProject = document.getElementById("buttonNewProject");
@@ -16,15 +15,6 @@ class Project {
   }
 }
 
-// class Task {
-//   constructor(project_name, task_name) {
-//     this.project_name = project_name;
-//     this.task_name = task_name;
-//     // this.priority = priority;
-//     // this.due_date = due_date;
-//   }
-// }
-
 function addNewProject(project_name) {
   let project = new Project(project_name);
   projectArr.push(project);
@@ -37,16 +27,6 @@ buttonNewProject.addEventListener("click", () => {
 closeDialog.addEventListener("click", () => {
   dialogNewProject.close();
 });
-
-// function addTaskToProject() {
-
-// }
-
-// function addNewTask(project_name, task_name) {
-//   let task = new Task(project_name, task_name);
-//   taskArr.push(task);
-// }
-// Helper function to display tasks
 
 function updateTaskDisplay(project) {
   // Check if displayTasks div already exists
@@ -78,17 +58,9 @@ function updateTaskDisplay(project) {
     displayTasks.appendChild(taskContainer);
 
     taskCheckbox.addEventListener("change", () => {
-      console.log("change", task.checked);
       task.completed = taskCheckbox.checked; // Update the task's checked state
-      console.log("change", task.checked);
     });
   });
-
-  // taskCheckbox.addEventListener("change", () {
-  //   const projectName = projectArr.find((proj) => proj.project_name === project);
-  //   project.tasks.projectName.
-
-  // })
 }
 
 function loadPage(project_name) {
@@ -107,10 +79,6 @@ function loadPage(project_name) {
   const addTaskButton = document.createElement("button");
   addTaskButton.setAttribute("class", "addTaskButton");
   addTaskButton.textContent = "+";
-
-  // addTaskButton.addEventListener("click", () => {
-  //   addTaskToProject(project_name);
-  // });
 
   // Add event listener for adding a task
   addTaskButton.addEventListener("click", () => {

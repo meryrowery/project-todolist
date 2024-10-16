@@ -1,0 +1,80 @@
+.content {
+  display: grid;
+  grid-template-columns: 15vw 85vw;
+  grid-template-rows: 100vh;
+}
+
+.sidebar {
+  background-color: rgb(236, 236, 236);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#dialogNewProject {
+  border: 1px solid #888;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+#buttonNewProject {
+  border-style: none;
+  font-size: 20px;
+  background-color: rgb(236, 236, 236);
+}
+
+.addTaskButton {
+  border-style: none;
+  font-size: 20px;
+  background-color: white;
+}
+
+.pageProject {
+  border-style: none;
+  font-size: 16px;
+  padding: 0;
+  text-align: start;
+  background-color: rgb(236, 236, 236);
+}
+
+#displayProjects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+}
+
+.removeButton {
+  visibility: hidden;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.entry:hover .removeButton {
+  visibility: visible;
+}
+
+.right-side {
+  padding: 100px;
+}
+
+/* .projectContentDiv {
+  font-size: 60px;
+} */

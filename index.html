@@ -5,5 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   <script defer src="main.js"></script></head>
-  <body></body>
+  <body>
+    <div class="content">
+      <div class="sidebar">
+        <div class="heading">
+          <header id="projectHeader">Projects</header>
+          <button id="buttonNewProject">+</button>
+        </div>
+        <div id="displayProjects"></div>
+        <dialog id="dialogNewProject">
+          <span class="close" id="closeDialog">&times;</span>
+          <h2>New Project</h2>
+          <form method="dialog">
+            <p>
+              <label for="name">Project Name</label>
+              <input type="text" id="name" name="name" />
+            </p>
+            <button id="submit">Submit</button>
+          </form>
+        </dialog>
+      </div>
+      <div class="right-side"></div>
+    </div>
+  </body>
 </html>

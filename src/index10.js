@@ -1,7 +1,6 @@
 import "./styles.css";
 
 let projectArr = [];
-// let taskArr = [];
 const dialogNewProject = document.getElementById("dialogNewProject");
 const closeDialog = document.getElementById("closeDialog");
 const buttonNewProject = document.getElementById("buttonNewProject");
@@ -12,42 +11,15 @@ const rightDiv = document.querySelector(".right-side");
 class Project {
   constructor(project_name) {
     this.project_name = project_name;
-    this.tasks = [];
+    this.tasks = []; // Tasks will now be objects with task_name and checked properties
+  }
+
+  addTask(task_name) {
+    this.tasks.push({ task_name: task_name, checked: false }); // Add task as object with checked state
   }
 }
 
-// class Task {
-//   constructor(project_name, task_name) {
-//     this.project_name = project_name;
-//     this.task_name = task_name;
-//     // this.priority = priority;
-//     // this.due_date = due_date;
-//   }
-// }
-
-function addNewProject(project_name) {
-  let project = new Project(project_name);
-  projectArr.push(project);
-}
-
-buttonNewProject.addEventListener("click", () => {
-  dialogNewProject.showModal();
-});
-
-closeDialog.addEventListener("click", () => {
-  dialogNewProject.close();
-});
-
-// function addTaskToProject() {
-
-// }
-
-// function addNewTask(project_name, task_name) {
-//   let task = new Task(project_name, task_name);
-//   taskArr.push(task);
-// }
 // Helper function to display tasks
-
 function updateTaskDisplay(project) {
   // Check if displayTasks div already exists
   let displayTasks = document.querySelector(".displayTasks");
@@ -64,36 +36,35 @@ function updateTaskDisplay(project) {
 
   // Append the updated tasks to the displayTasks div
   project.tasks.forEach((task, index) => {
-    console.log("task:", index, task);
     const taskContainer = document.createElement("div");
     taskContainer.setAttribute("class", "taskContainer");
+
     const taskDiv = document.createElement("div");
     taskDiv.setAttribute("class", "taskDiv");
-    taskDiv.textContent = task.name;
+    taskDiv.textContent = task.task_name;
+
     const taskCheckbox = document.createElement("input");
     taskCheckbox.setAttribute("type", "checkbox");
-    taskCheckbox.checked = task.completed || false;
+    taskCheckbox.checked = task.checked; // Set checkbox state based on task's checked property
+
+    // Add event listener to toggle checked state
+    taskCheckbox.addEventListener("change", () => {
+      task.checked = taskCheckbox.checked; // Update the task's checked state
+      console.log(
+        `Task "${task.task_name}" checked: ${task.checked ? "yes" : "no"}`
+      );
+    });
+
     taskContainer.append(taskCheckbox);
     taskContainer.append(taskDiv);
     displayTasks.appendChild(taskContainer);
-
-    taskCheckbox.addEventListener("change", () => {
-      console.log("change", task.checked);
-      task.completed = taskCheckbox.checked; // Update the task's checked state
-      console.log("change", task.checked);
-    });
   });
-
-  // taskCheckbox.addEventListener("change", () {
-  //   const projectName = projectArr.find((proj) => proj.project_name === project);
-  //   project.tasks.projectName.
-
-  // })
 }
 
 function loadPage(project_name) {
   // Clear existing content in the rightDiv
   rightDiv.innerHTML = "";
+
   const project = projectArr.find((proj) => proj.project_name === project_name);
 
   // Create a new div for the project content
@@ -108,20 +79,13 @@ function loadPage(project_name) {
   addTaskButton.setAttribute("class", "addTaskButton");
   addTaskButton.textContent = "+";
 
-  // addTaskButton.addEventListener("click", () => {
-  //   addTaskToProject(project_name);
-  // });
-
   // Add event listener for adding a task
   addTaskButton.addEventListener("click", () => {
     const taskName = prompt("Enter a task name:");
 
     if (taskName) {
       // Add the task to the project
-      project.tasks.push({
-        name: taskName,
-        completed: false,
-      }); // No need to check for tasks array since it's initialized in the Project class
+      project.addTask(taskName);
       console.log(project.tasks);
 
       // Update the task display
@@ -129,12 +93,12 @@ function loadPage(project_name) {
     }
   });
 
-  // Append the title to the project content div
+  // Append the title and add task button to the project content div
   projectContentDiv.appendChild(projectTitle);
+  projectContentDiv.append(addTaskButton);
 
   // Append the project content to the rightDiv
   rightDiv.appendChild(projectContentDiv);
-  rightDiv.append(addTaskButton);
 
   // Display existing tasks immediately
   updateTaskDisplay(project);
@@ -146,6 +110,7 @@ function display() {
     const entry = document.createElement("div");
     const projectButton = document.createElement("button");
     const removeButton = document.createElement("button");
+
     entry.setAttribute("class", "entry");
     removeButton.textContent = "x";
     removeButton.setAttribute("class", "removeButton");
@@ -164,7 +129,6 @@ function display() {
     entry.append(removeButton);
     displayProjects.append(entry);
     loadPage(element.project_name);
-    console.log(element);
   });
 }
 
@@ -175,6 +139,11 @@ projectForm.addEventListener("submit", function (event) {
   display();
   dialogNewProject.close();
 });
+
+function addNewProject(project_name) {
+  const project = new Project(project_name);
+  projectArr.push(project);
+}
 
 function removeProject(index) {
   projectArr.splice(index, 1); // Remove the project from the array

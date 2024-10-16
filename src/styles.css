@@ -78,3 +78,18 @@ body {
 /* .projectContentDiv {
   font-size: 60px;
 } */
+
+.taskContainer {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  margin: 6px;
+}
+
+.taskDiv {
+  display: flex; /* Enable Flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+}
